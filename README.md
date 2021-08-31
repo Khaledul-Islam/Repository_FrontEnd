@@ -1,0 +1,1 @@
+[![Board Status](https://dev.azure.com/khaledulislam/dfc665f9-303c-40c3-a381-6621e926633d/b41c82ce-eaec-4d6c-a0c5-5eda7560cbdb/_apis/work/boardbadge/e3c1cd64-6a2f-472b-bf31-889c0bd9a8ef)](https://dev.azure.com/khaledulislam/dfc665f9-303c-40c3-a381-6621e926633d/_boards/board/t/b41c82ce-eaec-4d6c-a0c5-5eda7560cbdb/Microsoft.RequirementCategory)
