@@ -69,11 +69,11 @@
         <div class="mx-6 d-flex justify-space-between">
           <span>
             &copy; 2021 <a
-              href="https://themeselection.com"
+              href="https://www.mediasoftbd.com/"
               class="text-decoration-none"
               target="_blank"
-            >ThemeSelection</a></span>
-          <span class="d-sm-inline d-none">
+            >MediaSoft</a></span>
+          <!-- <span class="d-sm-inline d-none">
             <a
               href="https://themeselection.com/products/category/download-free-admin-templates/"
               target="_blank"
@@ -89,7 +89,7 @@
               target="_blank"
               class="text--secondary text-decoration-none"
             >MIT Licence</a>
-          </span>
+          </span> -->
         </div>
       </div>
     </v-footer>

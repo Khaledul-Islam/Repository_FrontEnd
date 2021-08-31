@@ -7,7 +7,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: "/",
+    path: "/login",
     redirect: {
       name: "userLogin",
     }, 
@@ -24,7 +24,7 @@ const routes = [
 
   //menu section
   {
-    path: '/dashboard',
+    path: '/',
     redirect: 'dashboard',
   },
   {
@@ -33,9 +33,9 @@ const routes = [
     component: () => import('@/views/dashboard/Dashboard.vue'),
   },
   {
-    path: '/typography',
-    name: 'typography',
-    component: () => import('@/views/typography/Typography.vue'),
+    path: '/clients',
+    name: 'clients',
+    component: () => import('@/views/clients/clients.vue'),
   },
   {
     path: '/icons',
@@ -98,4 +98,17 @@ const router = new VueRouter({
   routes,
 })
 
+// router.beforeEach((to, from, next) => {
+//   const publicPages = ['/login', '/register', '/home'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = localStorage.getItem('user');
+
+//   // trying to access a restricted page + not logged in
+//   // redirect to login page
+//   if (authRequired && !loggedIn) {
+//     next('/login');
+//   } else {
+//     next();
+//   }
+// });
 export default router

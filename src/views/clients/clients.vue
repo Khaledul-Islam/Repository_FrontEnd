@@ -102,3 +102,14 @@
     </v-row>
   </v-card>
 </template>
+
+
+<script>
+
+
+export default {
+  components: {
+
+  },
+}
+</script>

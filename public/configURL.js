@@ -1,5 +1,6 @@
 const URL = {
-  RepositoryURL: "http://192.168.1.220/RepositoryManagement",
+  RepositoryURL: "https://localhost:44383",
+  // RepositoryURL: "http://192.168.1.220/RepositoryManagement",
 };
 
 const ServicePath = {

@@ -69,9 +69,8 @@
       </nav-menu-group>
       <nav-menu-section-title title="USER INTERFACE"></nav-menu-section-title>
       <nav-menu-link
-        title="Typography"
-        :to="{ name: 'typography' }"
-        :icon="icons.mdiAlphaTBoxOutline"
+        title="Clients"
+        :to="{ name: 'clients' }"
       ></nav-menu-link>
       <nav-menu-link
         title="Icons"
@@ -107,7 +106,6 @@
 // eslint-disable-next-line object-curly-newline
 import {
   mdiHomeOutline,
-  mdiAlphaTBoxOutline,
   mdiEyeOutline,
   mdiCreditCardOutline,
   mdiTable,
@@ -135,7 +133,6 @@ export default {
     return {
       icons: {
         mdiHomeOutline,
-        mdiAlphaTBoxOutline,
         mdiEyeOutline,
         mdiCreditCardOutline,
         mdiTable,

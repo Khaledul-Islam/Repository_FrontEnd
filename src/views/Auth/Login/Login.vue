@@ -27,10 +27,10 @@
         <!-- login form -->
         <v-card-text>
           <v-form>
-            <v-text-field v-model="email" outlined label="User Name" hide-details class="mb-3"></v-text-field>
+            <v-text-field v-model="user.username" outlined label="User Name" hide-details class="mb-3"></v-text-field>
 
             <v-text-field
-              v-model="password"
+              v-model="user.password"
               outlined
               :type="isPasswordVisible ? 'text' : 'password'"
               label="Password"
@@ -46,8 +46,9 @@
               <!-- forgot link -->
               <a href="javascript:void(0)" class="mt-1"> Forgot Password? </a>
             </div>
-
-            <v-btn block color="primary" class="mt-6"> Login </v-btn>
+            <v-btn @click="login()" :disabled="loading" block color="primary" class="mt-6">
+              <span v-show="loading" class="spinner-border spinner-border-sm"></span> <span>Login</span>
+            </v-btn>
           </v-form>
         </v-card-text>
 
@@ -108,6 +109,7 @@ import { ref } from '@vue/composition-api'
 import Axios from 'axios'
 import { commonConfig, postConfig } from '../../../../public/ApiLib.js'
 import { RepositoryAPI } from '../../../../public/config.js'
+import data from '@/views/dashboard/datatable-data.js'
 
 var WeatherForeCastAPIBodyData = {
   path: '/WeatherForecast/Get',
@@ -118,26 +120,47 @@ var WeatherForeCastAPIBodyData = {
 export default {
   data() {
     return {
+      user: {
+        username: null,
+        password: null,
+      },
+      loading: false,
+
       APIResponse: {},
       WeatherForeCastAPIBody: WeatherForeCastAPIBodyData,
     }
   },
   methods: {
+    login() {
+      this.loading = true
+      if (this.user.username && this.user.password) {
+        this.$store.dispatch('auth/login', this.user).then(
+          () => {
+            this.$router.push('/')
+          },
+          error => {
+            this.loading = false
+            this.message =
+              (error.response && error.response.data && error.response.data.message) ||
+              error.message ||
+              error.toString()
+          },
+        )
+      }
+    },
     GetWeatherForeCast() {
-      debugger;
-      
       let config = commonConfig(this.WeatherForeCastAPIBody, RepositoryAPI)
       Axios(config)
         .then(response => {
-          this.APIResponse = response["data"];
-          console.log(this.APIResponse);
+          this.APIResponse = response['data']
+          console.log(this.APIResponse)
         })
         .catch(function (error) {
           console.error(error)
-         
         })
     },
   },
+
   setup() {
     const isPasswordVisible = ref(false)
     const email = ref('')
@@ -178,7 +201,7 @@ export default {
     }
   },
   created() {
-    this.GetWeatherForeCast();
+    this.GetWeatherForeCast()
   },
 }
 </script>
