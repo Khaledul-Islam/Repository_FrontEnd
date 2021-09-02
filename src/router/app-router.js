@@ -43,9 +43,9 @@ const routes = [
     component: () => import('@/views/developers/developers.vue'),
   },
   {
-    path: '/cards',
-    name: 'cards',
-    component: () => import('@/views/cards/Card.vue'),
+    path: '/repositories',
+    name: 'repositories',
+    component: () => import('@/views/repositories/repositories.vue'),
   },
   {
     path: '/simple-table',

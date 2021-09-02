@@ -42,7 +42,7 @@
       <nav-menu-section-title title="USER INTERFACE"></nav-menu-section-title>
       <nav-menu-link title="Clients" :to="{ name: 'clients' }" :icon="icons.mdiAccountMultiple"></nav-menu-link>
       <nav-menu-link title="Developer" :to="{ name: 'developers' }" :icon="icons.mdiAccountGroup"></nav-menu-link>
-      <nav-menu-link title="Cards" :to="{ name: 'cards' }" :icon="icons.mdiCreditCardOutline"></nav-menu-link>
+      <nav-menu-link title="Repositories" :to="{ name: 'repositories' }" :icon="icons.mdiSourceRepository "></nav-menu-link>
       <nav-menu-link title="Tables" :to="{ name: 'simple-table' }" :icon="icons.mdiTable"></nav-menu-link>
       <nav-menu-link title="Form Layouts" :to="{ name: 'form-layouts' }" :icon="icons.mdiFormSelect"></nav-menu-link>
     </v-list>
@@ -63,6 +63,7 @@ import {
   mdiAccountCogOutline,
   mdiAccountGroup,
   mdiAccountMultiple,
+  mdiSourceRepository ,
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -92,6 +93,7 @@ export default {
         mdiAccountCogOutline,
         mdiAccountGroup,
         mdiAccountMultiple,
+        mdiSourceRepository ,
       },
     }
   },
