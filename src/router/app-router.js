@@ -38,9 +38,9 @@ const routes = [
     component: () => import('@/views/clients/clients.vue'),
   },
   {
-    path: '/icons',
-    name: 'icons',
-    component: () => import('@/views/icons/Icons.vue'),
+    path: '/developers',
+    name: 'developers',
+    component: () => import('@/views/developers/developers.vue'),
   },
   {
     path: '/cards',

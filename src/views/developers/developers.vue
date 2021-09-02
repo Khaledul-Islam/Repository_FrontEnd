@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto">
-    <v-card-title>Clients</v-card-title>
+    <v-card-title>Developers</v-card-title>
     <v-spacer></v-spacer>
     <v-card-title>
       <v-row>
@@ -55,8 +55,8 @@ import { RepositoryAPI } from '../../../public/config.js'
 import CreateModal from './create.vue'
 import EditModal from './edit.vue'
 
-var clientListAPIBodyData = {
-  path: '/Client/GetClientList',
+var developerListAPIBodyData = {
+  path: '/Developer/GetDeveloperList',
   method: 'GET',
   data: {},
 }
@@ -64,11 +64,11 @@ var clientListAPIBodyData = {
 var headersData = [
   {
     text: 'ID',
-    value: 'clientID',
+    value: 'developerID',
   },
   {
-    text: 'Client Name',
-    value: 'client_Name',
+    text: 'Developer Name',
+    value: 'developerName',
   },
   {
     text: '',
@@ -86,12 +86,12 @@ export default {
       search: '',
       dialog: false,
       editdialog: false,
-      client_name: null,
+      developerName: null,
       isIndex: true,
       selectIndex: null,
       ApiResponse: [],
       headers: headersData,
-      clientListAPIBody: clientListAPIBodyData,
+      developerListAPIBody: developerListAPIBodyData,
     }
   },
   components: {
@@ -99,38 +99,38 @@ export default {
     EditModal,
   },
   methods: {
-    saveClient() {
+    saveDeveloper() {
       this.saveBody = {
-        path: '/Client/ClientSave',
+        path: '/Developer/CreateDeveloper',
         method: 'POST',
         data: {
-          client_Name: '',
+          developerName: '',
         },
       }
       let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.saveBody.path
-      this.saveBody.data.client_Name = this.client_name
+      this.saveBody.data.developerName = this.developerName
 
       Axios.post(requestPath, this.saveBody.data)
         .then(response => {
           if (response['data']) {
             this.$root.snackbar.setsuccesstext('Data saved successfully')
-            this.GetClientList()
+            this.GetdeveloperList()
           }
         })
         .catch(e => {
-          this.$root.snackbar.seterrortext('Client already exist.Try Another')
+          this.$root.snackbar.seterrortext('Developer already exist.Try Another')
         })
     },
     GetItem(item) {
-      this.client_name = item
-      this.saveClient()
+      this.developerName = item
+      this.saveDeveloper()
     },
     Closedialog() {
       this.dialog = false
       this.editdialog = false
     },
-    GetClientList() {
-      let config = commonConfig(this.clientListAPIBody, RepositoryAPI)
+    GetdeveloperList() {
+      let config = commonConfig(this.developerListAPIBody, RepositoryAPI)
       Axios(config)
         .then(response => {
           this.ApiResponse = response['data']
@@ -142,12 +142,12 @@ export default {
     createNew() {
       this.dialog = true
     },
-    DeleteClient() {
+    DeleteDeveloper() {
       this.deleteBody = {
-        path: '/Client/RemoveClient?Id=',
+        path: '/Developer/RemoveDeveloper?Id=',
         method: 'POST',
       }
-      let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.deleteBody.path + this.selectIndex.clientID
+      let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.deleteBody.path + this.selectIndex.developerID
 
       Axios.post(requestPath, this.deleteBody.data)
         .then(response => {
@@ -160,23 +160,22 @@ export default {
         })
     },
     rowClickEdit(item) {
-      this.$store.commit('setClientInfo', item)
-      //ClientsInfoData
+      this.$store.commit('setdeveloperInfo', item)
       this.editdialog = true
     },
     rowClickDelete(item) {
       this.selectIndex = item
       const proceed = confirm('Confirm remove?')
       if (proceed) {
-        this.DeleteClient()
-        const addressIndex = this.ApiResponse.findIndex(obj => obj.clientID === item.clientID)
+        this.DeleteDeveloper()
+        const addressIndex = this.ApiResponse.findIndex(obj => obj.developerID === item.developerID)
         this.ApiResponse.splice(addressIndex, 1)
       }
     },
   },
 
   created() {
-    this.GetClientList()
+    this.GetdeveloperList()
   },
 }
 </script>

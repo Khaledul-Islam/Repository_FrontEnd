@@ -2,19 +2,11 @@
   <v-app>
     <vertical-nav-menu :is-drawer-open.sync="isDrawerOpen"></vertical-nav-menu>
 
-    <v-app-bar
-      app
-      flat
-      absolute
-      color="transparent"
-    >
+    <v-app-bar app flat absolute color="transparent">
       <div class="boxed-container w-full">
         <div class="d-flex align-center mx-6">
           <!-- Left Content -->
-          <v-app-bar-nav-icon
-            class="d-block d-lg-none me-2"
-            @click="isDrawerOpen = !isDrawerOpen"
-          ></v-app-bar-nav-icon>
+          <v-app-bar-nav-icon class="d-block d-lg-none me-2" @click="isDrawerOpen = !isDrawerOpen"></v-app-bar-nav-icon>
           <v-text-field
             rounded
             dense
@@ -37,11 +29,7 @@
             </v-icon>
           </a>
           <theme-switcher></theme-switcher>
-          <v-btn
-            icon
-            small
-            class="ms-3"
-          >
+          <v-btn icon small class="ms-3">
             <v-icon>
               {{ icons.mdiBellOutline }}
             </v-icon>
@@ -57,22 +45,13 @@
       </div>
     </v-main>
 
-    <v-footer
-      app
-      inset
-      color="transparent"
-      absolute
-      height="56"
-      class="px-0"
-    >
+    <v-footer app inset color="transparent" absolute height="56" class="px-0">
       <div class="boxed-container w-full">
         <div class="mx-6 d-flex justify-space-between">
           <span>
-            &copy; 2021 <a
-              href="https://www.mediasoftbd.com/"
-              class="text-decoration-none"
-              target="_blank"
-            >MediaSoft</a></span>
+            &copy; 2021
+            <a href="https://www.mediasoftbd.com/" class="text-decoration-none" target="_blank">MediaSoft</a></span
+          >
           <!-- <span class="d-sm-inline d-none">
             <a
               href="https://themeselection.com/products/category/download-free-admin-templates/"
@@ -91,6 +70,11 @@
             >MIT Licence</a>
           </span> -->
         </div>
+        <template>
+          <snackbar ref="snackbar" />
+        </template></div></v-footer
+  ></v-app>
+</template>
       </div>
     </v-footer>
   </v-app>
@@ -102,12 +86,14 @@ import { mdiMagnify, mdiBellOutline, mdiGithub } from '@mdi/js'
 import VerticalNavMenu from './components/vertical-nav-menu/VerticalNavMenu.vue'
 import ThemeSwitcher from './components/ThemeSwitcher.vue'
 import AppBarUserMenu from './components/AppBarUserMenu.vue'
+import snackbar from './components/Snackbar.vue'
 
 export default {
   components: {
     VerticalNavMenu,
     ThemeSwitcher,
     AppBarUserMenu,
+    snackbar,
   },
   setup() {
     const isDrawerOpen = ref(null)
@@ -122,6 +108,9 @@ export default {
         mdiGithub,
       },
     }
+  },
+  mounted() {
+    this.$root.snackbar = this.$refs.snackbar
   },
 }
 </script>
