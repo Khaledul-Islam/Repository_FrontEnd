@@ -3,7 +3,8 @@ import Vuex from 'vuex'
 
 import { auth } from './modules/auth.module';
 import ClientsInfoData from './modules/clients/clients';
-import DevelopersInfoData from './modules//developers/developers';
+import DevelopersInfoData from './modules/developers/developers';
+import RepositoryInfoData from './modules/repositories/repositories';
 
 Vue.use(Vuex)
 
@@ -15,5 +16,6 @@ export default new Vuex.Store({
     auth,
     ClientsInfoData,
     DevelopersInfoData,
+    RepositoryInfoData,
   },
 })

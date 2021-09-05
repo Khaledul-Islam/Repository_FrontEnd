@@ -25,6 +25,7 @@
           :items="ApiResponse"
           item-key="clientID"
           :search="search"
+          @dblclick:row="rowDblClick"
           class="elevation-1 pb-5 mt-5"
         >
           <template v-slot:[`item.Edit`]="{ item }">
@@ -147,7 +148,8 @@ export default {
         path: '/Developer/RemoveDeveloper?Id=',
         method: 'POST',
       }
-      let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.deleteBody.path + this.selectIndex.developerID
+      let requestPath =
+        RepositoryAPI.URL + RepositoryAPI.ServicePath + this.deleteBody.path + this.selectIndex.developerID
 
       Axios.post(requestPath, this.deleteBody.data)
         .then(response => {
@@ -171,6 +173,11 @@ export default {
         const addressIndex = this.ApiResponse.findIndex(obj => obj.developerID === item.developerID)
         this.ApiResponse.splice(addressIndex, 1)
       }
+    },
+    rowDblClick: function (mouseEvent, row) {
+      let data = row['item']
+      this.$store.commit('setdeveloperInfo', data)
+      this.editdialog = true
     },
   },
 

@@ -25,6 +25,7 @@
           :items="ApiResponse"
           item-key="clientID"
           :search="search"
+          @dblclick:row="rowDblClick"
           class="elevation-1 pb-5 mt-5"
         >
           <template v-slot:[`item.Edit`]="{ item }">
@@ -110,7 +111,7 @@ export default {
       search: '',
       dialog: false,
       editdialog: false,
-      developerName: null,
+      repository: {},
       isIndex: true,
       selectIndex: null,
       ApiResponse: [],
@@ -123,16 +124,23 @@ export default {
     EditModal,
   },
   methods: {
-    saveDeveloper() {
+    saveRepository() {
       this.saveBody = {
-        path: '/Developer/CreateDeveloper',
+        path: '/Repositories/CreateRepository',
         method: 'POST',
         data: {
-          developerName: '',
+          repositoryName: '',
+          url: '',
+          toolsTech: '',
+          comments: '',
+          repoType: '',
+          createDate: '',
+          createDate: '',
+          lastUpdate: '',
         },
       }
       let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.saveBody.path
-      this.saveBody.data.developerName = this.developerName
+      this.saveBody.data = this.repository
 
       Axios.post(requestPath, this.saveBody.data)
         .then(response => {
@@ -146,8 +154,8 @@ export default {
         })
     },
     GetItem(item) {
-      this.developerName = item
-      this.saveDeveloper()
+      this.repository = item
+      this.saveRepository()
     },
     Closedialog() {
       this.dialog = false
@@ -184,7 +192,12 @@ export default {
         })
     },
     rowClickEdit(item) {
-      this.$store.commit('setdeveloperInfo', item)
+      this.$store.commit('setrepositoryInfo', item)
+      this.editdialog = true
+    },
+    rowDblClick: function (mouseEvent, row) {
+      let data = row['item']
+      this.$store.commit('setrepositoryInfo', data)
       this.editdialog = true
     },
     rowClickDelete(item) {

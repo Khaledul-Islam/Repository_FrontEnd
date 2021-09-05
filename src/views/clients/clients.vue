@@ -25,6 +25,7 @@
           :items="ApiResponse"
           item-key="clientID"
           :search="search"
+          @dblclick:row="rowDblClick"
           class="elevation-1 pb-5 mt-5"
         >
           <template v-slot:[`item.Edit`]="{ item }">
@@ -172,6 +173,11 @@ export default {
         const addressIndex = this.ApiResponse.findIndex(obj => obj.clientID === item.clientID)
         this.ApiResponse.splice(addressIndex, 1)
       }
+    },
+    rowDblClick: function (mouseEvent, row) {
+      let data = row['item']
+      this.$store.commit('setClientInfo', data)
+      this.editdialog = true
     },
   },
 
