@@ -43,8 +43,10 @@
       <nav-menu-link title="Clients" :to="{ name: 'clients' }" :icon="icons.mdiAccountMultiple"></nav-menu-link>
       <nav-menu-link title="Developer" :to="{ name: 'developers' }" :icon="icons.mdiAccountGroup"></nav-menu-link>
       <nav-menu-link title="Repositories" :to="{ name: 'repositories' }" :icon="icons.mdiSourceRepository "></nav-menu-link>
-      <nav-menu-link title="Tables" :to="{ name: 'simple-table' }" :icon="icons.mdiTable"></nav-menu-link>
-      <nav-menu-link title="Form Layouts" :to="{ name: 'form-layouts' }" :icon="icons.mdiFormSelect"></nav-menu-link>
+      <nav-menu-link title="RepositoryClients" :to="{ name: 'repoclients' }" :icon="icons.mdiSemanticWeb "></nav-menu-link>
+      <nav-menu-link title="RepositoryDeveloper" :to="{ name: 'form-layouts' }" :icon="icons.mdiFormSelect"></nav-menu-link>
+      <nav-menu-link title="Project Hand-Over" :to="{ name: 'form-layouts' }" :icon="icons.mdiFormSelect"></nav-menu-link>
+      <nav-menu-link title="Reports" :to="{ name: 'form-layouts' }" :icon="icons.mdiFormSelect"></nav-menu-link>
     </v-list>
     <a href="https://themeselection.com/products/materio-vuetify-vuejs-admin-template" target="_blank" rel="nofollow">
     </a>
@@ -57,7 +59,7 @@ import {
   mdiHomeOutline,
   mdiEyeOutline,
   mdiCreditCardOutline,
-  mdiTable,
+  mdiSemanticWeb,
   mdiFileOutline,
   mdiFormSelect,
   mdiAccountCogOutline,
@@ -87,7 +89,7 @@ export default {
         mdiHomeOutline,
         mdiEyeOutline,
         mdiCreditCardOutline,
-        mdiTable,
+        mdiSemanticWeb,
         mdiFileOutline,
         mdiFormSelect,
         mdiAccountCogOutline,

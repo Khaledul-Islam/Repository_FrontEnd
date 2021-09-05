@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto">
-    <v-card-title>Repositories</v-card-title>
+    <v-card-title>Repository Clients</v-card-title>
     <v-spacer></v-spacer>
     <v-card-title>
       <v-row>
@@ -56,8 +56,8 @@ import { RepositoryAPI } from '../../../public/config.js'
 import CreateModal from './create.vue'
 import EditModal from './edit.vue'
 
-var repositoryListAPIBodyData = {
-  path: '/Repositories/GetRepositories',
+var repoClientsListAPIBodyData = {
+  path: '/RepoClient/GetRepoClients',
   method: 'GET',
   data: {},
 }
@@ -65,35 +65,19 @@ var repositoryListAPIBodyData = {
 var headersData = [
   {
     text: 'ID',
-    value: 'id',
+    value: 'repoClientID',
   },
   {
     text: 'Repository Name',
-    value: 'repositoryName',
+    value: 'repositoryList.repositoryName',
   },
   {
-    text: 'Repository Type',
-    value: 'repoType',
+    text: 'Clients Name',
+    value: 'client.client_Name',
   },
   {
-    text: 'Technologies',
-    value: 'toolsTech',
-  },
-  {
-    text: 'URL',
-    value: 'url',
-  },
-  {
-    text: 'Create Date',
-    value: 'createDate',
-  },
-  {
-    text: 'Last Update',
-    value: 'lastUpdate',
-  },
-  {
-    text: 'Comments',
-    value: 'comments',
+    text: 'Dates',
+    value: 'dates',
   },
   {
     text: '',
@@ -111,12 +95,12 @@ export default {
       search: '',
       dialog: false,
       editdialog: false,
-      repository: {},
+      repoclient: {},
       isIndex: true,
       selectIndex: null,
       ApiResponse: [],
       headers: headersData,
-      repositoryListAPIBody: repositoryListAPIBodyData,
+      repoClientsListAPIBody: repoClientsListAPIBodyData,
     }
   },
   components: {
@@ -124,7 +108,7 @@ export default {
     EditModal,
   },
   methods: {
-    saveRepository() {
+    saveRepoClient() {
       this.saveBody = {
         path: '/Repositories/CreateRepository',
         method: 'POST',
@@ -146,23 +130,23 @@ export default {
         .then(response => {
           if (response['data']) {
             this.$root.snackbar.setsuccesstext('Data saved successfully')
-            this.GetRepositoryList()
+            this.RepoClientsList()
           }
         })
         .catch(e => {
-          this.$root.snackbar.seterrortext('Project already exist.Try Another')
+          this.$root.snackbar.seterrortext('Already exist.Try Another')
         })
     },
     GetItem(item) {
-      this.repository = item
-      this.saveRepository()
+      this.repoclient = item
+      this.saveRepoClient()
     },
     Closedialog() {
       this.dialog = false
       this.editdialog = false
     },
-    GetRepositoryList() {
-      let config = commonConfig(this.repositoryListAPIBody, RepositoryAPI)
+    RepoClientsList() {
+      let config = commonConfig(this.repoClientsListAPIBody, RepositoryAPI)
       Axios(config)
         .then(response => {
           this.ApiResponse = response['data']
@@ -174,12 +158,12 @@ export default {
     createNew() {
       this.dialog = true
     },
-    DeleteRepository() {
+    DeleteRepoClient() {
       this.deleteBody = {
-        path: '/Repositories/RemoveRepository?Id=',
+        path: '/RepoClient/DeleteRepoClient?id=',
         method: 'POST',
       }
-      let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.deleteBody.path + this.selectIndex.id
+      let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.deleteBody.path + this.selectIndex.repoClientID
 
       Axios.post(requestPath, this.deleteBody.data)
         .then(response => {
@@ -204,15 +188,15 @@ export default {
       this.selectIndex = item
       const proceed = confirm('Confirm remove?')
       if (proceed) {
-        this.DeleteRepository()
-        const addressIndex = this.ApiResponse.findIndex(obj => obj.id === item.id)
+        this.DeleteRepoClient()
+        const addressIndex = this.ApiResponse.findIndex(obj => obj.repoClientID === item.repoClientID)
         this.ApiResponse.splice(addressIndex, 1)
       }
     },
   },
 
   created() {
-    this.GetRepositoryList()
+    this.RepoClientsList()
   },
 }
 </script>

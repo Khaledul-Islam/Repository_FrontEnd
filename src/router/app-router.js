@@ -48,9 +48,9 @@ const routes = [
     component: () => import('@/views/repositories/repositories.vue'),
   },
   {
-    path: '/simple-table',
-    name: 'simple-table',
-    component: () => import('@/views/simple-table/SimpleTable.vue'),
+    path: '/repoclients',
+    name: 'repoclients',
+    component: () => import('@/views/repoclients/repoclients.vue'),
   },
   {
     path: '/form-layouts',
