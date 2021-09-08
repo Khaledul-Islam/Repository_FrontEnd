@@ -153,7 +153,6 @@ export default {
       Axios(config)
         .then(response => {
           this.APIResponse = response['data']
-          console.log(this.APIResponse)
         })
         .catch(function (error) {
           console.error(error)

@@ -53,9 +53,19 @@ const routes = [
     component: () => import('@/views/repoclients/repoclients.vue'),
   },
   {
-    path: '/form-layouts',
-    name: 'form-layouts',
-    component: () => import('@/views/form-layouts/FormLayouts.vue'),
+    path: '/repodev',
+    name: 'repodev',
+    component: () => import('@/views/repodev/repodev.vue'),
+  },
+  {
+    path: '/handover',
+    name: 'handover',
+    component: () => import('@/views/handover/handover.vue'),
+  },
+  {
+    path: '/reports',
+    name: 'reports',
+    component: () => import('@/views/reports/reports.vue'),
   },
   {
     path: '/pages/account-settings',

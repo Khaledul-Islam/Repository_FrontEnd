@@ -4,7 +4,7 @@
       <v-dialog v-model="editdialog" persistent max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Update RepoClient</span>
+            <span class="text-h5">Update Repository Developer</span>
           </v-card-title>
           <v-card-text>
             <v-container>
@@ -21,30 +21,41 @@
                       slot-scope="{ errors, valid }"
                       :error-messages="errors"
                       :success="valid"
-                      v-model="repoclientdata.repoID"
+                      v-model="repodevdata.repoID"
                     ></v-autocomplete>
                   </ValidationProvider>
                 </v-col>
                 <v-col cols="12" md="6">
-                  <ValidationProvider name="Clients" :rules="{ required: true }">
+                  <ValidationProvider name="Developer" :rules="{ required: true }">
                     <v-autocomplete
                       clearable
-                      hint="Enter Repository Type"
-                      :items="clientList"
-                      item-text="client_Name"
-                      item-value="clientID"
-                      label="Clients"
+                      hint="Enter Developer List"
+                      :items="developerList"
+                      item-text="developerName"
+                      item-value="developerID"
+                      label="Developers"
                       slot-scope="{ errors, valid }"
                       :error-messages="errors"
                       :success="valid"
-                      v-model="repoclientdata.clientID"
+                      v-model="repodevdata.devID"
                     ></v-autocomplete>
                   </ValidationProvider>
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="12" md="6">
-                  <DatePickerWithText v-model="repoclientdata.dates" dateLabel="Date" :requiredRules="true" />
+                  <DatePickerWithText v-model="repodevdata.assignDate" dateLabel="Assign Date" :requiredRules="true" />
+                </v-col>
+                <v-col cols="12" md="6">
+                  <ValidationProvider name="assign Form" :rules="{ required: false }">
+                    <v-text-field
+                      v-model="repodevdata.assignFrom"
+                      label="Assign Form"
+                      slot-scope="{ errors, valid }"
+                      :error-messages="errors"
+                      :success="valid"
+                    ></v-text-field>
+                  </ValidationProvider>
                 </v-col>
               </v-row>
               <v-row> </v-row>
@@ -67,8 +78,8 @@ var repositoryListAPIBodyData = {
   method: 'GET',
   data: {},
 }
-var clientListAPIBodyData = {
-  path: '/Client/GetClientList',
+var developerListAPIBodyData = {
+  path: '/Developer/GetDeveloperList',
   method: 'GET',
   data: {},
 }
@@ -80,16 +91,16 @@ export default {
   data: () => ({
     editdialog: true,
     repoList: [],
-    clientList: [],
+    developerList: [],
     repositoryListAPIBody: repositoryListAPIBodyData,
-    clientListAPIBody: clientListAPIBodyData,
+    developerListAPIBody: developerListAPIBodyData,
   }),
   methods: {
-    GetClientList() {
-      let config = commonConfig(this.clientListAPIBody, RepositoryAPI)
+    GetDeveloperList() {
+      let config = commonConfig(this.developerListAPIBody, RepositoryAPI)
       Axios(config)
         .then(response => {
-          this.clientList = response['data']
+          this.developerList = response['data']
         })
         .catch(error => {
           this.$root.snackbar.seterrortext(error)
@@ -110,7 +121,7 @@ export default {
       if (!isValid) {
         this.$root.snackbar.seterrortext('Please Fill The Required Field')
       } else {
-        this.$emit('SetEditItem', this.repoclientdata)
+        this.$emit('SetEditItem', this.repodevdata)
         this.close()
       }
     },
@@ -121,21 +132,21 @@ export default {
   },
 
   created() {
-    this.GetClientList()
+    this.GetDeveloperList()
     this.GetRepositoryList()
   },
   computed: {
-    repoclientdata: {
+    repodevdata: {
       get() {
-        return this.$store.state.RepoClientInfoData.repoclientdata
+        return this.$store.state.RepoDevInfoData.repodevdata
       },
     },
   },
   watch: {
-    repoclientdata: {
+    repodevdata: {
       deep: true,
       handler(newValue) {
-        this.$store.commit('setrepoclientInfo', newValue)
+        this.$store.commit('setrepodevInfo', newValue)
       },
     },
   },

@@ -42,11 +42,19 @@
       <nav-menu-section-title title="USER INTERFACE"></nav-menu-section-title>
       <nav-menu-link title="Clients" :to="{ name: 'clients' }" :icon="icons.mdiAccountMultiple"></nav-menu-link>
       <nav-menu-link title="Developer" :to="{ name: 'developers' }" :icon="icons.mdiAccountGroup"></nav-menu-link>
-      <nav-menu-link title="Repositories" :to="{ name: 'repositories' }" :icon="icons.mdiSourceRepository "></nav-menu-link>
-      <nav-menu-link title="RepositoryClients" :to="{ name: 'repoclients' }" :icon="icons.mdiSemanticWeb "></nav-menu-link>
-      <nav-menu-link title="RepositoryDeveloper" :to="{ name: 'form-layouts' }" :icon="icons.mdiFormSelect"></nav-menu-link>
-      <nav-menu-link title="Project Hand-Over" :to="{ name: 'form-layouts' }" :icon="icons.mdiFormSelect"></nav-menu-link>
-      <nav-menu-link title="Reports" :to="{ name: 'form-layouts' }" :icon="icons.mdiFormSelect"></nav-menu-link>
+      <nav-menu-link
+        title="Repositories"
+        :to="{ name: 'repositories' }"
+        :icon="icons.mdiSourceRepository"
+      ></nav-menu-link>
+      <nav-menu-link
+        title="Repository Clients"
+        :to="{ name: 'repoclients' }"
+        :icon="icons.mdiSemanticWeb"
+      ></nav-menu-link>
+      <nav-menu-link title="Repository Developer" :to="{ name: 'repodev' }" :icon="icons.mdiFormSelect"></nav-menu-link>
+      <nav-menu-link title="Project Hand-Over" :to="{ name: 'handover' }" :icon="icons.mdiHandshake"></nav-menu-link>
+      <nav-menu-link title="Reports" :to="{ name: 'reports' }" :icon="icons.mdiChartAreaspline "></nav-menu-link>
     </v-list>
     <a href="https://themeselection.com/products/materio-vuetify-vuejs-admin-template" target="_blank" rel="nofollow">
     </a>
@@ -65,7 +73,9 @@ import {
   mdiAccountCogOutline,
   mdiAccountGroup,
   mdiAccountMultiple,
-  mdiSourceRepository ,
+  mdiSourceRepository,
+  mdiHandshake,
+  mdiChartAreaspline ,
 } from '@mdi/js'
 import NavMenuSectionTitle from './components/NavMenuSectionTitle.vue'
 import NavMenuGroup from './components/NavMenuGroup.vue'
@@ -95,7 +105,9 @@ export default {
         mdiAccountCogOutline,
         mdiAccountGroup,
         mdiAccountMultiple,
-        mdiSourceRepository ,
+        mdiSourceRepository,
+        mdiHandshake,
+        mdiChartAreaspline ,
       },
     }
   },

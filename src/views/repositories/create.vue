@@ -53,7 +53,7 @@
               </v-row>
               <v-row>
                 <v-col cols="12" md="6">
-                  <ValidationProvider name="URL" :rules="{ url, required: true, max: 50 }">
+                  <ValidationProvider name="URL" :rules="{required: true, max: 50 }">
                     <v-text-field
                       v-model="repository.url"
                       required

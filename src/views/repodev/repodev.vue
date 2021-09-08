@@ -1,6 +1,6 @@
 <template>
   <v-card class="mx-auto">
-    <v-card-title>Repository Clients</v-card-title>
+    <v-card-title>Repository Developer</v-card-title>
     <v-spacer></v-spacer>
     <v-card-title>
       <v-row>
@@ -61,8 +61,8 @@ import { RepositoryAPI } from '../../../public/config.js'
 import CreateModal from './create.vue'
 import EditModal from './edit.vue'
 
-var repoClientsListAPIBodyData = {
-  path: '/RepoClient/GetRepoClients',
+var repoDevListAPIBodyData = {
+  path: '/RepoDev/GetAllRepoDevs',
   method: 'GET',
   data: {},
 }
@@ -70,19 +70,27 @@ var repoClientsListAPIBodyData = {
 var headersData = [
   {
     text: 'ID',
-    value: 'repoClientID',
+    value: 'id',
   },
   {
     text: 'Repository Name',
     value: 'repositoryList.repositoryName',
   },
   {
-    text: 'Clients Name',
-    value: 'client.client_Name',
+    text: 'Developer Name',
+    value: 'developer.developerName',
   },
   {
-    text: 'Dates',
-    value: 'dates',
+    text: 'Assign Date',
+    value: 'assignDate',
+  },
+  {
+    text: 'Assign From',
+    value: 'assignFrom',
+  },
+  {
+    text: 'isFirst Assign',
+    value: 'isFirstAssign',
   },
   {
     text: '',
@@ -100,13 +108,13 @@ export default {
       search: '',
       dialog: false,
       editdialog: false,
-      repoclient: {},
-      objrepoclient: {},
+      repodev: {},
+      objrepodev: {},
       isIndex: true,
-      selectIndex: null,
+      selectIndex: {},
       ApiResponse: [],
       headers: headersData,
-      repoClientsListAPIBody: repoClientsListAPIBodyData,
+      repoDevListAPIBody: repoDevListAPIBodyData,
     }
   },
   components: {
@@ -114,25 +122,31 @@ export default {
     EditModal,
   },
   methods: {
-    saveRepoClient() {
+    saveRepoDev() {
       this.saveBody = {
-        path: '/RepoClient/CreateRepoClient',
+        path: '/RepoDev/CreateRepoDev',
         method: 'POST',
         data: {
-          repoClientID: 0,
-          clientList: '',
-          createDate: '',
-          repoList: '',
+          // id: 0,
+          isFirstAssign: true,
+          assignDate: '',
+          assignFrom: '',
+          repoID: 0,
+          devID: 0,
         },
       }
       let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.saveBody.path
-      this.saveBody.data = this.repoclient
+      this.saveBody.data.assignDate = this.repodev.assignDate
+      this.saveBody.data.assignFrom = this.repodev.assignForm
+      this.saveBody.data.devID = this.repodev.developerList
+      this.saveBody.data.isFirstAssign = this.repodev.isFirstAssign
+      this.saveBody.data.repoID = this.repodev.repoList
 
       Axios.post(requestPath, this.saveBody.data)
         .then(response => {
           if (response['data']) {
             this.$root.snackbar.setsuccesstext('Data saved successfully')
-            this.RepoClientsList()
+            this.RepoDevList()
           }
         })
         .catch(e => {
@@ -140,32 +154,35 @@ export default {
         })
     },
     GetItem(item) {
-      this.repoclient = item
-      this.saveRepoClient()
+      this.repodev = item
+      this.saveRepoDev()
     },
     UpdateAPICall() {
       this.editBody = {
-        path: '/RepoClient/UpdateRepoClient',
+        path: '/RepoDev/UpdateRepoDev',
         method: 'POST',
         data: {
-          repoClientID: null,
-          repoList: null,
-          clientList: null,
-          createDate: null,
+          id: null,
+          isFirstAssign: null,
+          assignDate: null,
+          assignFrom: null,
+          repoID: null,
+          devID: null,
         },
       }
       let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.editBody.path
 
-      this.editBody.data.repoClientID = this.objrepoclient.repoClientID
-      this.editBody.data.repoList = this.objrepoclient.repoID
-      this.editBody.data.clientList = this.objrepoclient.clientID
-      this.editBody.data.createDate = this.objrepoclient.dates
+      this.editBody.data.id = this.objrepodev.id
+      this.editBody.data.isFirstAssign = this.objrepodev.isFirstAssign
+      this.editBody.data.assignDate = this.objrepodev.assignDate
+      this.editBody.data.assignFrom = this.objrepodev.assignFrom
+      this.editBody.data.repoID = this.objrepodev.repoID
+      this.editBody.data.devID = this.objrepodev.devID
 
       Axios.post(requestPath, this.editBody.data)
         .then(response => {
           if (response['data']) {
             this.$root.snackbar.setsuccesstext('Data updated successfully')
-            this.RepoClientsList()
           }
         })
         .catch(e => {
@@ -173,15 +190,15 @@ export default {
         })
     },
     GetEditItem(item) {
-      this.objrepoclient = item
+      this.objrepodev = item
       this.UpdateAPICall()
     },
     Closedialog() {
       this.dialog = false
       this.editdialog = false
     },
-    RepoClientsList() {
-      let config = commonConfig(this.repoClientsListAPIBody, RepositoryAPI)
+    RepoDevList() {
+      let config = commonConfig(this.repoDevListAPIBody, RepositoryAPI)
       Axios(config)
         .then(response => {
           this.ApiResponse = response['data']
@@ -193,13 +210,12 @@ export default {
     createNew() {
       this.dialog = true
     },
-    DeleteRepoClient() {
+    DeleteRepoDev() {
       this.deleteBody = {
-        path: '/RepoClient/DeleteRepoClient?id=',
+        path: '/RepoDev/DeleteRepoDev?id=',
         method: 'POST',
       }
-      let requestPath =
-        RepositoryAPI.URL + RepositoryAPI.ServicePath + this.deleteBody.path + this.selectIndex.repoClientID
+      let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.deleteBody.path + this.selectIndex.id
 
       Axios.post(requestPath, this.deleteBody.data)
         .then(response => {
@@ -212,27 +228,27 @@ export default {
         })
     },
     rowClickEdit(item) {
-      this.$store.commit('setrepoclientInfo', item)
+      this.$store.commit('setrepodevInfo', item)
       this.editdialog = true
     },
     rowDblClick: function (mouseEvent, row) {
       let data = row['item']
-      this.$store.commit('setrepoclientInfo', data)
+      this.$store.commit('setrepodevInfo', data)
       this.editdialog = true
     },
     rowClickDelete(item) {
       this.selectIndex = item
       const proceed = confirm('Confirm remove?')
       if (proceed) {
-        this.DeleteRepoClient()
-        const addressIndex = this.ApiResponse.findIndex(obj => obj.repoClientID === item.repoClientID)
+        this.DeleteRepoDev()
+        const addressIndex = this.ApiResponse.findIndex(obj => obj.ID === item.ID)
         this.ApiResponse.splice(addressIndex, 1)
       }
     },
   },
 
   created() {
-    this.RepoClientsList()
+    this.RepoDevList()
   },
 }
 </script>
