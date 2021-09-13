@@ -7,6 +7,7 @@ import DevelopersInfoData from './modules/developers/developers';
 import RepositoryInfoData from './modules/repositories/repositories';
 import RepoClientInfoData from './modules/repoclient/repoclient';
 import RepoDevInfoData from './modules/repodev/repodev';
+import HandoverInfoData from './modules/handover/handover';
 
 Vue.use(Vuex)
 
@@ -21,5 +22,6 @@ export default new Vuex.Store({
     RepositoryInfoData,
     RepoClientInfoData,
     RepoDevInfoData,
+    HandoverInfoData,
   },
 })

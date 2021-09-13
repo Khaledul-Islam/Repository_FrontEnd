@@ -29,16 +29,16 @@
     <!-- Navigation Items -->
     <v-list expand shaped class="vertical-nav-menu-items pr-5">
       <nav-menu-link title="Dashboard" :to="{ name: 'dashboard' }" :icon="icons.mdiHomeOutline"></nav-menu-link>
-      <nav-menu-link
+      <!-- <nav-menu-link
         title="Account Settings"
         :to="{ name: 'pages-account-settings' }"
         :icon="icons.mdiAccountCogOutline"
-      ></nav-menu-link>
-      <nav-menu-group title="Pages" :icon="icons.mdiFileOutline">
+      ></nav-menu-link> -->
+      <!-- <nav-menu-group title="Pages" :icon="icons.mdiFileOutline">
         <nav-menu-link title="Login" :to="{ name: 'pages-login' }" target="_blank"></nav-menu-link>
         <nav-menu-link title="Register" :to="{ name: 'pages-register' }" target="_blank"></nav-menu-link>
         <nav-menu-link title="Error" :to="{ name: 'error-404' }" target="_blank"></nav-menu-link>
-      </nav-menu-group>
+      </nav-menu-group> -->
       <nav-menu-section-title title="USER INTERFACE"></nav-menu-section-title>
       <nav-menu-link title="Clients" :to="{ name: 'clients' }" :icon="icons.mdiAccountMultiple"></nav-menu-link>
       <nav-menu-link title="Developer" :to="{ name: 'developers' }" :icon="icons.mdiAccountGroup"></nav-menu-link>

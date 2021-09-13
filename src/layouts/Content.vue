@@ -19,21 +19,19 @@
           <v-spacer></v-spacer>
 
           <!-- Right Content -->
-          <a
+          <!-- <a
             href="https://github.com/themeselection/materio-vuetify-vuejs-admin-template-free"
             target="_blank"
             rel="nofollow"
           >
-            <v-icon class="ms-6 me-4">
-              {{ icons.mdiGithub }}
-            </v-icon>
-          </a>
+    
+          </a> -->
           <theme-switcher></theme-switcher>
-          <v-btn icon small class="ms-3">
+          <!-- <v-btn icon small class="ms-3">
             <v-icon>
               {{ icons.mdiBellOutline }}
             </v-icon>
-          </v-btn>
+          </v-btn> -->
           <app-bar-user-menu></app-bar-user-menu>
         </div>
       </div>
@@ -50,7 +48,7 @@
         <div class="mx-6 d-flex justify-space-between">
           <span>
             &copy; 2021
-            <a href="https://www.mediasoftbd.com/" class="text-decoration-none" target="_blank">MediaSoft</a></span
+            <a href="https://www.mediasoftbd.com/" class="text-decoration-none" target="_blank">MediaSoft-Repository Version:1.0</a></span
           >
           <!-- <span class="d-sm-inline d-none">
             <a
@@ -75,10 +73,7 @@
         </template></div></v-footer
   ></v-app>
 </template>
-      </div>
-    </v-footer>
-  </v-app>
-</template>
+
 
 <script>
 import { ref } from '@vue/composition-api'

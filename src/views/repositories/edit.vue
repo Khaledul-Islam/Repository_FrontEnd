@@ -52,22 +52,23 @@
                 </v-col>
               </v-row>
               <v-row>
-                <v-col cols="12" md="6">
-                  <ValidationProvider name="URL" :rules="{ required: true, max: 50 }">
-                    <v-text-field
+                <v-col cols="12" md="8">
+                  <ValidationProvider name="URL" :rules="{ required: true, max: 200 }">
+                    <v-textarea
                       v-model="repodata.url"
                       required
+                      clearable
                       label="URL"
                       slot-scope="{ errors, valid }"
                       :error-messages="errors"
                       :success="valid"
-                    ></v-text-field>
+                    ></v-textarea>
                   </ValidationProvider>
                 </v-col>
                 <!-- <v-col cols="12" md="6">
                   <DatePickerWithText v-model="repository.createDate" dateLabel="Create Date" :requiredRules="true" />
                 </v-col> -->
-                <v-col cols="12" md="6">
+                <v-col cols="12" md="4">
                   <DatePickerWithText v-model="repodata.lastUpdate" dateLabel="Date" :requiredRules="true" />
                 </v-col>
               </v-row>

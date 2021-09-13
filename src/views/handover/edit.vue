@@ -4,58 +4,58 @@
       <v-dialog v-model="editdialog" persistent max-width="600px">
         <v-card>
           <v-card-title>
-            <span class="text-h5">Update Repository Developer</span>
+            <span class="text-h5">HandOver</span>
           </v-card-title>
           <v-card-text>
             <v-container>
               <v-row>
-                <v-col cols="12" md="6">
-                  <ValidationProvider name="Repositories" :rules="{ required: true }">
+                <v-col cols="12" md="4">
+                  <ValidationProvider name="Project Name" :rules="{ required: true }">
                     <v-autocomplete
                       clearable
-                      hint="Enter Repository List"
+                      hint="Enter Project Name"
                       :items="repoList"
                       item-text="repositoryName"
                       item-value="id"
-                      label="Repositories"
+                      label="Project"
                       slot-scope="{ errors, valid }"
                       :error-messages="errors"
                       :success="valid"
-                      v-model="repodevdata.repoID"
+                      v-model="handoverdata.repoID"
                     ></v-autocomplete>
                   </ValidationProvider>
                 </v-col>
-                <v-col cols="12" md="6">
+                <v-col cols="12" md="4">
                   <ValidationProvider name="Developer" :rules="{ required: true }">
                     <v-autocomplete
-                      clearable
-                      hint="Enter Developer List"
+                      disabled
                       :items="developerList"
                       item-text="developerName"
                       item-value="developerID"
-                      label="Developers"
-                      slot-scope="{ errors, valid }"
-                      :error-messages="errors"
-                      :success="valid"
-                      v-model="repodevdata.devID"
+                      label="Current Developers"
+                      v-model="handoverdata.devID"
                     ></v-autocomplete>
                   </ValidationProvider>
+                </v-col>
+                <v-col cols="12" md="4">
+                  <DatePickerWithText v-model="handoverdata.assignDate" dateLabel="Assign Date" :requiredRules="true" />
                 </v-col>
               </v-row>
               <v-row>
                 <v-col cols="12" md="6">
-                  <DatePickerWithText v-model="repodevdata.assignDate" dateLabel="Assign Date" :requiredRules="true" />
+                  <ValidationProvider name="Developer" :rules="{ required: true }">
+                    <v-autocomplete
+                      clearable
+                      :items="developerList"
+                      item-text="developerName"
+                      item-value="developerID"
+                      label="New Developers"
+                      v-model="handoverdata.newDev"
+                    ></v-autocomplete>
+                  </ValidationProvider>
                 </v-col>
                 <v-col cols="12" md="6">
-                  <ValidationProvider name="assign Form" :rules="{ required: false }">
-                    <v-text-field
-                      v-model="repodevdata.assignFrom"
-                      label="Assign Form"
-                      slot-scope="{ errors, valid }"
-                      :error-messages="errors"
-                      :success="valid"
-                    ></v-text-field>
-                  </ValidationProvider>
+                  <DatePickerWithText v-model="handoverdata.newDate" dateLabel="Date" :requiredRules="true" />
                 </v-col>
               </v-row>
               <v-row> </v-row>
@@ -64,7 +64,7 @@
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="blue darken-1" @click="close()" text> Close </v-btn>
-            <v-btn color="blue darken-1" @click="Update()" text> Update </v-btn>
+            <v-btn color="blue darken-1" @click="Update()" text> Handover </v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -121,7 +121,7 @@ export default {
       if (!isValid) {
         this.$root.snackbar.seterrortext('Please Fill The Required Field')
       } else {
-        this.$emit('SetEditItem', this.repodevdata)
+        this.$emit('SetEditItem', this.handoverdata)
         this.close()
       }
     },
@@ -136,17 +136,17 @@ export default {
     this.GetRepositoryList()
   },
   computed: {
-    repodevdata: {
+    handoverdata: {
       get() {
-        return this.$store.state.RepoDevInfoData.repodevdata
+        return this.$store.state.HandoverInfoData.handoverdata
       },
     },
   },
   watch: {
-    repodevdata: {
+    handoverdata: {
       deep: true,
       handler(newValue) {
-        this.$store.commit('setrepodevInfo', newValue)
+        this.$store.commit('sethandoverInfo', newValue)
       },
     },
   },

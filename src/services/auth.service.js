@@ -5,7 +5,7 @@ import { RepositoryAPI } from '../../public/config'
 const API_URL = 'https://localhost:44383/Users/Authenticate/authenticate';
 
 class AuthService {
-  login(user) {
+  async login(user) {
     this.LoginBody = {
       path: '/Users/Authenticate/authenticate',
       method: 'POST',
@@ -16,15 +16,12 @@ class AuthService {
     }
     let requestPath = RepositoryAPI.URL + RepositoryAPI.ServicePath + this.LoginBody.path
 
-    return axios
-      .post(requestPath, this.LoginBody.data)
-      .then(response => {
-        if (response.data.token) {
-          localStorage.setItem('user', JSON.stringify(response.data));
-        }
-
-        return response.data;
-      });
+    const response = await axios
+      .post(requestPath, this.LoginBody.data);
+    if (response.data.token) {
+      localStorage.setItem('user', JSON.stringify(response.data));
+    }
+    return response.data;
   }
 
   logout() {

@@ -46,8 +46,8 @@
               <!-- forgot link -->
               <a href="javascript:void(0)" class="mt-1"> Forgot Password? </a>
             </div>
-            <v-btn @click="login()" :disabled="loading" block color="primary" class="mt-6">
-              <span v-show="loading" class="spinner-border spinner-border-sm"></span> <span>Login</span>
+            <v-btn @click="login()"  block color="primary" class="mt-6">
+              <span  class="spinner-border spinner-border-sm"></span> <span>Login</span>
             </v-btn>
           </v-form>
         </v-card-text>
@@ -106,16 +106,8 @@
 // eslint-disable-next-line object-curly-newline
 import { mdiFacebook, mdiTwitter, mdiGithub, mdiGoogle, mdiEyeOutline, mdiEyeOffOutline } from '@mdi/js'
 import { ref } from '@vue/composition-api'
-import Axios from 'axios'
-import { commonConfig, postConfig } from '../../../../public/ApiLib.js'
-import { RepositoryAPI } from '../../../../public/config.js'
-import data from '@/views/dashboard/datatable-data.js'
 
-var WeatherForeCastAPIBodyData = {
-  path: '/WeatherForecast/Get',
-  method: 'GET',
-  data: {},
-}
+
 
 export default {
   data() {
@@ -124,40 +116,23 @@ export default {
         username: null,
         password: null,
       },
-      loading: false,
-
       APIResponse: {},
-      WeatherForeCastAPIBody: WeatherForeCastAPIBodyData,
     }
   },
   methods: {
     login() {
-      this.loading = true
       if (this.user.username && this.user.password) {
         this.$store.dispatch('auth/login', this.user).then(
           () => {
             this.$router.push('/dashboard')
           },
           error => {
-            this.loading = false
-            this.message =
-              (error.response && error.response.data && error.response.data.message) ||
-              error.message ||
-              error.toString()
+             this.$root.snackbar.seterrortext("Wrong Username and Password")
           },
         )
       }
     },
-    GetWeatherForeCast() {
-      let config = commonConfig(this.WeatherForeCastAPIBody, RepositoryAPI)
-      Axios(config)
-        .then(response => {
-          this.APIResponse = response['data']
-        })
-        .catch(function (error) {
-          console.error(error)
-        })
-    },
+
   },
 
   setup() {
@@ -200,7 +175,6 @@ export default {
     }
   },
   created() {
-    this.GetWeatherForeCast()
   },
 }
 </script>

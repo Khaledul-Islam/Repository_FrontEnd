@@ -28,7 +28,15 @@
           @dblclick:row="rowDblClick"
           class="elevation-1 pb-5 mt-5"
         >
+          <template v-slot:[`item.url`]="{ item }">
+           <div @click="rowClickView(item)" class="text-truncate" style="max-width: 130px">
+              {{ item.url }}
+            </div>
+          </template>
           <template v-slot:[`item.Edit`]="{ item }">
+            <v-btn class="mx-2" x-small color="success" dark fab @click="rowClickView(item)">
+              <v-icon>mdi-eye</v-icon></v-btn
+            >
             <v-btn class="mx-2" x-small color="secondary" dark fab @click="rowClickEdit(item)">
               <v-icon>mdi-pencil</v-icon></v-btn
             >
@@ -45,6 +53,7 @@
         @closedialog="Closedialog($event)"
       />
       <EditModal v-if="editdialog === true" v-model="editdialog" @closeeditdialog="Closedialog($event)" />
+      <ViewModal v-if="viewdialog === true" v-model="viewdialog" @closeviewdialog="Closedialog($event)" />
     </v-row>
   </v-card>
 </template>
@@ -55,6 +64,7 @@ import { commonConfig, postConfig } from '../../../public/ApiLib'
 import { RepositoryAPI } from '../../../public/config.js'
 import CreateModal from './create.vue'
 import EditModal from './edit.vue'
+import ViewModal from './view.vue'
 
 var repositoryListAPIBodyData = {
   path: '/Repositories/GetRepositories',
@@ -84,18 +94,6 @@ var headersData = [
     value: 'url',
   },
   {
-    text: 'Create Date',
-    value: 'createDate',
-  },
-  {
-    text: 'Last Update',
-    value: 'lastUpdate',
-  },
-  {
-    text: 'Comments',
-    value: 'comments',
-  },
-  {
     text: '',
     value: 'Edit',
   },
@@ -111,6 +109,7 @@ export default {
       search: '',
       dialog: false,
       editdialog: false,
+      viewdialog: false,
       repository: {},
       isIndex: true,
       selectIndex: null,
@@ -122,6 +121,7 @@ export default {
   components: {
     CreateModal,
     EditModal,
+    ViewModal,
   },
   methods: {
     saveRepository() {
@@ -160,6 +160,7 @@ export default {
     Closedialog() {
       this.dialog = false
       this.editdialog = false
+      this.viewdialog = false
     },
     GetRepositoryList() {
       let config = commonConfig(this.repositoryListAPIBody, RepositoryAPI)
@@ -194,6 +195,10 @@ export default {
     rowClickEdit(item) {
       this.$store.commit('setrepositoryInfo', item)
       this.editdialog = true
+    },
+    rowClickView(item) {
+      this.$store.commit('setrepositoryInfo', item)
+      this.viewdialog = true
     },
     rowDblClick: function (mouseEvent, row) {
       let data = row['item']
